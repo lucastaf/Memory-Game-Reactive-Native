@@ -1,28 +1,8 @@
-import {
-  Image,
-  StyleSheet,
-  Platform,
-  View,
-  Text,
-  Button,
-  LayoutAnimation,
-} from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
-import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { useEffect, useState } from "react";
-import Animated, {
-  useSharedValue,
-  withSpring,
-  useDerivedValue,
-  interpolate,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
-import { transform } from "@babel/core";
 import CardComponent from "@/components/cards/cardComponents";
+import CardDeck from "@/components/cards/cardDeck";
 
 export default function HomeScreen() {
   return (
@@ -35,11 +15,7 @@ export default function HomeScreen() {
         />
       }
     >
-
-      <CardComponent frontText="Carta 1" />
-      <CardComponent frontText="Carta 2" />
-      <CardComponent frontText="Carta 3" />
-      <CardComponent frontText="Carta 4" />
+      <CardDeck />
     </ParallaxScrollView>
   );
 }
