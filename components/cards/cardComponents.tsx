@@ -9,7 +9,7 @@ import { card } from "./cardDeck";
 import { useEffect, useState } from "react";
 
 export default function CardComponent(props: cardProps) {
-  const { card, onCardSelection, blockCard } = props;
+  const { card, onCardSelection, blockCard, reset } = props;
   const [showingCard, setShowingCard] = useState(false);
   const rotation = useSharedValue(180);
   const opacity = useSharedValue(1);
@@ -18,9 +18,11 @@ export default function CardComponent(props: cardProps) {
       rotation.value > 360 ? rotation.set(rotation.value % 360) : null
     );
   }, [showingCard]);
-  const reset = () => {
+  useEffect(() => {
+    rotation.set(180);
     setShowingCard(false);
-  };
+    opacity.value = withTiming(1);
+  }, [reset]);
 
   const onClick = () => {
     if (blockCard) return;
@@ -29,7 +31,7 @@ export default function CardComponent(props: cardProps) {
     if (typeof onSelection != "boolean") {
       onSelection.then((win) => {
         if (win == false) {
-          reset();
+          setShowingCard(false);
         } else {
           opacity.value = withTiming(0);
         }
@@ -54,12 +56,6 @@ export default function CardComponent(props: cardProps) {
     };
   });
 
-  const backFaceStyle = useAnimatedStyle(() => {
-    return {
-      zIndex: Math.cos((rotation.value * Math.PI) / 180) < 0 ? 10 : -10,
-    };
-  });
-
   return (
     <TouchableWithoutFeedback onPress={onClick}>
       <Animated.View style={[rotate3dStyle.container, rotationStyle]}>
@@ -69,8 +65,8 @@ export default function CardComponent(props: cardProps) {
         <Animated.Text
           style={[
             rotate3dStyle.element,
-            backFaceStyle,
             {
+              zIndex: 0,
               transform: [{ rotateY: "180deg" }],
             },
           ]}
@@ -105,4 +101,5 @@ export type cardProps = {
   blockCard: boolean;
   card: card;
   onCardSelection: (card: card, showing: boolean) => Promise<Boolean> | boolean;
+  reset: boolean;
 };
