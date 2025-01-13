@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { shuffleArray } from "../shuffleArray";
 import ConfettiCannon from "react-native-confetti-cannon";
 import Explosion from "react-native-confetti-cannon";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const cardsList = ["❤️", "🚗", "🎮", "☂️", "🍔", "🌝", "🍎", "🏀"];
 export default function CardDeck() {
@@ -80,8 +81,9 @@ export default function CardDeck() {
         <View style={DeckStyles.container}>
           <FlatList
             numColumns={4}
-            columnWrapperStyle={{ gap: 10 }}
-            contentContainerStyle={{ gap: 10, alignItems: "center" }}
+            nestedScrollEnabled 
+            columnWrapperStyle={{ gap: 10, flexWrap : "wrap", justifyContent:"center" }}
+            contentContainerStyle={{ gap: 10, alignItems: "center", paddingTop: 10 }}
             data={cards}
             renderItem={(item) => (
               <CardComponent

@@ -71,7 +71,7 @@ export default function CardComponent(props: cardProps) {
             },
           ]}
         >
-          ❓❓
+          ❓
         </Animated.Text>
       </Animated.View>
     </TouchableWithoutFeedback>
@@ -80,8 +80,9 @@ export default function CardComponent(props: cardProps) {
 
 const rotate3dStyle = StyleSheet.create({
   container: {
-    width: 150,
-    height: 150,
+    width: 120,
+    maxWidth: "22%",
+    aspectRatio: 1,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -90,6 +91,7 @@ const rotate3dStyle = StyleSheet.create({
   },
   element: {
     backgroundColor: "white",
+    borderRadius: 20,
     width: "100%",
     fontSize: 30,
     position: "absolute",
